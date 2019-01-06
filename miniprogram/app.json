@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/benyuedanjia/benyuedanjia",
+    "pages/quanbudanjia/quanbudanjia",
+    "pages/chazhang/chazhang"
+    
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "呈呈制衣厂",
+    "navigationBarTextStyle": "black"
+  }
+}

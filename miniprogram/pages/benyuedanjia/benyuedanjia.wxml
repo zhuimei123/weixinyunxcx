@@ -1,0 +1,40 @@
+
+<view class="container">
+
+ <view class="list">
+    <view class="list-item">
+     
+      <input class="input" placeholder="请输入款号" name="kuanhao" value='{{kuanhao}}' bindinput='fromkuanhao' />
+      <button  bindtap='chaxuan' >查询</button> 
+      
+    </view>
+
+
+
+
+    <view class="list-item">
+      <text class="request-text"  style="color:  'black'">日期</text>
+      <text class="request-text"  style="color:  'black'">款号</text>
+      <text class="request-text"  style="color:  'black'">平车单价</text>
+      <text class="request-text"  style="color:  'black'">冚车单价</text>
+    </view>
+    
+ 
+    
+
+     <block wx:for="{{queryResult2}}">
+  <view class="list-item">
+    <text class="request-text"  >{{item.riqi}}</text>
+    <text class="request-text"  >{{item.kh}}</text>
+    <text class="request-text"  >{{item.pcdj}}</text>
+    <text class="request-text"  >{{item.kcdj}}</text>
+   </view>
+  </block>
+ 
+
+
+
+
+
+  </view>
+ </view>

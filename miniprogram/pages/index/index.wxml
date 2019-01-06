@@ -1,0 +1,46 @@
+<!--index.wxml-->
+<view class="container">
+
+  
+
+ 
+<view class="list-item" wx:if="{{userInfo2}}">
+      <text class="request-text">你好：{{xingmingnihao}}</text>
+     <button  class="request-text"  wx:if="{{wuwu}}" bindtap="onwuwu">无误上报</button>
+    </view>
+    
+    
+
+  <view class="uploader" wx:else="{{xingmingnihao}}">
+  
+    <view class="list-item" class="uploader-text">
+    <text>******</text>
+     </view>
+  <view class="list-item" >
+     <input  placeholder="请输入工号" name="gonghao" value='{{gonghao}}' bindinput='fromgonghao' />
+     <input class="input" placeholder="请输入密码" name="mima" value='{{mima}}' bindinput='frommima' />
+    <button class="userinfo-nickname" type="default" bindtap="onAddsq"><text>新增授权</text></button>
+    
+  </view>
+  </view>
+  
+
+  <view class="uploader" wx:if="{{xingmingnihao}}">
+    <navigator url="../chazhang/chazhang" open-type="navigate" class="uploader-text">
+      <text>车位查账</text>
+    </navigator>
+  </view>
+   
+  <view class="uploader" wx:if="{{xingmingnihao}}">
+    <navigator url="../benyuedanjia/benyuedanjia" open-type="navigate" class="uploader-text">
+      <text>单个单价</text>
+    </navigator>
+  </view>
+
+  <view class="uploader" wx:if="{{xingmingnihao}}">
+    <navigator url="../quanbudanjia/quanbudanjia" open-type="navigate" class="uploader-text">
+      <text>整月单价</text>
+    </navigator>
+  </view>
+
+</view>

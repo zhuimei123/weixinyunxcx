@@ -1,0 +1,45 @@
+<view class="container">
+<view class="list-item" wx:if="{{userInfo2}}">
+      <text class="request-text">你好：{{xingmingnihao}}</text>
+      <text class="request-text">总金额：{{res2}}</text>
+    </view>
+    
+
+
+
+
+
+    <view class="list-item" wx:if="{{userInfo2}}">
+      <text class="request-text"  style="color:  'black'">床号</text>
+      <text class="request-text"  style="color:  'black'">款号</text>
+      <text class="request-text"  style="color:  'black'">数量</text>
+      <text class="request-text"  style="color:  'black'">单价</text>
+      <text class="request-text"  style="color:  'black'">金额</text>
+    </view>
+    
+ 
+  
+    
+
+     <block wx:for="{{queryResult3}}" wx:if="{{userInfo2}}">
+  <view class="list-item">
+    <text class="request-text"  >{{item.ch}}</text>
+    <text class="request-text"  >{{item.kh}}</text>
+    <text class="request-text"  >{{item.sl}}</text>
+    <text class="request-text"  >{{item.dj}}</text>
+    <text class="request-text"  >{{item.je}}</text>
+   </view>
+  </block>
+ 
+
+<div class="nav">
+      <button class="prev" size="mini" type="default" bindtap="prevStep" wx:if="{{step-1}}">上一步</button>
+      
+      <button class="next" size="mini" type="default" bindtap="nextStep" wx:if="{{num2}}">下一步</button>
+    </div>
+
+
+
+
+ 
+ </view>

@@ -1,0 +1,46 @@
+<view class="container">
+
+<view class="list-item" >
+      <text class="request-text">你好：{{xingmingnihao}}</text>
+    </view>
+    
+   
+
+
+
+
+    <view class="list-item" >
+      <text class="request-text"  style="color:  'black'">床号</text>
+      <text class="request-text"  style="color:  'black'">款号</text>
+      <text class="request-text"  style="color:  'black'">平车单价</text>
+      <text class="request-text"  style="color:  'black'">冚车单价</text>
+    </view>
+    
+ 
+  
+    
+
+     <block wx:for="{{queryResult2}}" >
+  <view class="list-item">
+    <text class="request-text"  >{{item.ch}}</text>
+    <text class="request-text"  >{{item.kh}}</text>
+    <text class="request-text"  >{{item.pcdj}}</text>
+    <text class="request-text"  >{{item.kcdj}}</text>
+   </view>
+
+ 
+
+
+  </block>
+  <div class="nav">
+      <button class="prev" size="mini" type="default" bindtap="prevStep" wx:if="{{step-1}}">上一步</button>
+      
+      <button class="next" size="mini" type="default" bindtap="nextStep" wx:if="{{num}}">下一步</button>
+    </div>
+
+
+
+
+
+ 
+ </view>
