@@ -9,3 +9,10 @@
   flex-direction: row;
   align-content: space-between;
 }
+
+.input{
+ 
+  height: 2.5rem;
+  min-height: 2.5rem;
+}
+

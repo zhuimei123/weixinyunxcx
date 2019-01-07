@@ -114,7 +114,7 @@ Page({
         })
 
 
-        wx.cloud.database().collection('zongjine').where({ 'cw': this.data.cw }).get({ success: res => { this.setData({ zongjine: res.data[0].zongjine }) } }) 
+ 
 
 
         wx.cloud.database().collection('mingxi').where({ 'chewei': this.data.cw}).skip((this.data.step - 1) * 20).get({

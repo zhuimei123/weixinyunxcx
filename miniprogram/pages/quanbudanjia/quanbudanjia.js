@@ -117,14 +117,14 @@ Page({
 
   prevStep: function () {
     this.setData({ step: this.data.step - 1 })
-    this.setData({ num2: Math.ceil((this.data.mycounts2) / 20) - this.data.step }) 
+    this.setData({ num: Math.ceil((this.data.mycounts) / 20) - this.data.step }) 
     this.getprice();
 
   },
   nextStep: function () {
    
     this.setData({ step: this.data.step + 1 })
-    this.setData({ num2: Math.ceil((this.data.mycounts2) / 20) - this.data.step }) 
+    this.setData({ num: Math.ceil((this.data.mycounts) / 20) - this.data.step }) 
     
     this.getprice();
 

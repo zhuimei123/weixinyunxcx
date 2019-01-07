@@ -5,7 +5,7 @@
     <view class="list-item">
      
       <input class="input" placeholder="请输入款号" name="kuanhao" value='{{kuanhao}}' bindinput='fromkuanhao' />
-      <button  bindtap='chaxuan' >查询</button> 
+      <button   bindtap='getbenyue' >查询</button> 
       
     </view>
 
