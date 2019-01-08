@@ -161,7 +161,7 @@ Page({
 
     wx.cloud.callFunction({
       // 云函数名称 
-      name: 'colletionsum2',
+      name: 'colletionsum',
       // 传给云函数的参数 
       data: {
         a: this.data.gonghao
@@ -169,14 +169,15 @@ Page({
       },
     })
       .then(res => {
+       
 
+    //    this.data.res2 = res.result.data[0].je
 
-        this.data.res2 = res.result.data[0].je
-
-        for (this.data.i = 1; this.data.i < res.result.data.length; this.data.i++) {
-          this.data.res2 = this.data.res2 + res.result.data[this.data.i].je
-        }
-        this.setData({ res2: Math.floor(this.data.res2) })
+    //    for (this.data.i = 1; this.data.i < res.result.data.length; this.data.i++) {
+    //      this.data.res2 = this.data.res2 + res.result.data[this.data.i].je
+    //    }
+    //    this.setData({ res2: Math.floor(this.data.res2) })
+        this.setData({ res2: res.result })
         console.log('[数据库] [查询总金额] 成功: ', this.data.res2)
 
       })

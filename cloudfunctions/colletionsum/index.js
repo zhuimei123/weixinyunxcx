@@ -3,6 +3,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
+
 const MAX_LIMIT = 100
 exports.main = async (event, context) => {
   // 先取出集合记录总数 
@@ -20,15 +21,15 @@ exports.main = async (event, context) => {
    
   }
   // 等待所有 
-  return (await Promise.all(tasks)).reduce((acc, cur) => {
-    
-  return {
-  
-    data: acc.data.concat(cur.data),
-        
-      //data: parseInt(acc.data['je']) +parseInt(cur.data['je']), 
-      errMsg: acc.errMsg,
- 
+  mydata = (await Promise.all(tasks)).reduce((acc, cur) => {
+    return {
+      data:acc.data.concat(cur.data),
+     
     }
   })
+   mydata = mydata.data
+   sum = parseFloat(mydata[0].je)
+  for (let j=1;j<mydata.length;j++) {sum = sum + parseFloat(mydata[j].je) }
+  return Math.floor(sum)
+  //return Math.floor(mydata.reduce((total, item) => total + parseFloat(item.je)))
 }
