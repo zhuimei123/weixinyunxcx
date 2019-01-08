@@ -12,17 +12,23 @@ exports.main = async (event, context) => {
   const batchTimes = Math.ceil(total / 100)
   // 承载所有读操作的 promise 的数组 
   const tasks = []
+
   for (let i = 0; i < batchTimes; i++) {
   
     const promise = db.collection('mingxi').where({ 'chewei': event.a }).field({'je': true }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
     tasks.push(promise)
+   
   }
   // 等待所有 
   return (await Promise.all(tasks)).reduce((acc, cur) => {
-    return {
-      data: acc.data.concat(cur.data),
+    
+  return {
+  
+    data: acc.data.concat(cur.data),
+        
       //data: parseInt(acc.data['je']) +parseInt(cur.data['je']), 
       errMsg: acc.errMsg,
+ 
     }
   })
 }

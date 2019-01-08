@@ -12,5 +12,6 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "呈呈制衣厂",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "cloud":true
 }
