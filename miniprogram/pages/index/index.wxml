@@ -30,6 +30,11 @@
       <text>车位查账</text>
     </navigator>
   </view>
+   <view class="uploader" wx:if="{{xingmingnihao}}">
+    <navigator url="../chazhang2/chazhang2" open-type="navigate" class="uploader-text">
+      <text>车位查账2</text>
+    </navigator>
+  </view>
    
   <view class="uploader" wx:if="{{xingmingnihao}}">
     <navigator url="../benyuedanjia/benyuedanjia" open-type="navigate" class="uploader-text">
