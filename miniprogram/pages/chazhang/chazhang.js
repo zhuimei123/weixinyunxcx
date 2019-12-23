@@ -10,7 +10,7 @@ Page({
     xingmingnihao: null,
     openid: '',
     num2:1,
-   
+    count2:0,
     queryResult3: '',
     cw:null,
     mycounts2: null, 
@@ -88,6 +88,7 @@ Page({
           console.log('[数据库] [查询工号] 成功: ', this.data.gonghao)
          this.getmingxi()
           this.getsumsum()
+          this.getsumcount()
         },
         fail: err => {
           wx.showToast({
@@ -183,6 +184,37 @@ Page({
 
 
   }, 
+  getsumcount: function () {
+
+    wx.cloud.callFunction({
+      // 云函数名称 
+      name: 'countsum',
+      // 传给云函数的参数 
+      data: {
+        a: this.data.gonghao
+
+      },
+    })
+      .then(res => {
+
+
+        //    this.data.res2 = res.result.data[0].je
+
+        //    for (this.data.i = 1; this.data.i < res.result.data.length; this.data.i++) {
+        //      this.data.res2 = this.data.res2 + res.result.data[this.data.i].je
+        //    }
+        //    this.setData({ res2: Math.floor(this.data.res2) })
+        this.setData({ count2: res.result })
+        console.log('[数据库] [查询总金额] 成功: ', this.data.res2)
+
+      })
+      .catch(console.error)
+
+
+  },
+
+
+
 
 
     

@@ -48,4 +48,10 @@
     </navigator>
   </view>
 
+  <view class="uploader" wx:if="{{xingmingnihao}}">
+    <navigator url="../paidui/paidui" open-type="navigate" class="uploader-text">
+      <text>排队啦啦</text>
+    </navigator>
+  </view>
+
 </view>

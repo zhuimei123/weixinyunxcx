@@ -16,7 +16,7 @@ Page({
     mycounts2: null,
     res2: 0,
     i: 0,
-   
+    count2:0,
 
   },
 
@@ -89,6 +89,7 @@ Page({
         console.log('[数据库] [查询工号] 成功: ', this.data.gonghao)
         this.getmingxi()
         this.getsumsum()
+        this.getsumcount()
       },
       fail: err => {
         wx.showToast({
@@ -101,19 +102,10 @@ Page({
   },
 
   getmingxi: function () {
-    if (!this.data.step) this.setData({ step: 1 })
+    
 
-    this.setData({ cw: parseInt(this.data.gonghao) })
-    wx.cloud.database().collection('mingxi').where({ 'chewei': this.data.cw }).count({
-      success: res => {
-
-        this.setData({
-          mycounts2: res.total
-        })
-        
-     
-      }
-    })
+   
+   
 
     wx.cloud.callFunction({
       // 云函数名称 
@@ -186,7 +178,34 @@ Page({
 
   },
 
+  getsumcount: function () {
 
+    wx.cloud.callFunction({
+      // 云函数名称 
+      name: 'countsum',
+      // 传给云函数的参数 
+      data: {
+        a: this.data.gonghao
+
+      },
+    })
+      .then(res => {
+
+
+        //    this.data.res2 = res.result.data[0].je
+
+        //    for (this.data.i = 1; this.data.i < res.result.data.length; this.data.i++) {
+        //      this.data.res2 = this.data.res2 + res.result.data[this.data.i].je
+        //    }
+        //    this.setData({ res2: Math.floor(this.data.res2) })
+        this.setData({ count2: res.result })
+        console.log('[数据库] [查询总金额] 成功: ', this.data.res2)
+
+      })
+      .catch(console.error)
+
+
+  },
 
 
 

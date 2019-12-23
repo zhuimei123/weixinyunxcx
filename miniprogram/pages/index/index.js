@@ -114,6 +114,7 @@ Page({
           this.setData({mingcheng2: res.data[0].mingcheng})
          
           console.log('okokoko')
+          console.log(this.data.mingcheng2.length)
           if(this.data.mingcheng2.length >2)
           {
           //  this.data.mingcheng2 = this.data.mingcheng2.substring(this.data.mingcheng2.length - 10, this.data.mingcheng2.length - 3)

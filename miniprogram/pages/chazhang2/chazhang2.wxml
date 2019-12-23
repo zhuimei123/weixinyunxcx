@@ -1,6 +1,7 @@
 <view class="container">
 <view class="list-item" wx:if="{{userInfo2}}">
       <text class="request-text">你好：{{xingmingnihao}}</text>
+      <text class="request-text">总数量：{{count2}}</text>
       <text class="request-text">总金额：{{res2}}</text>
     </view>
     

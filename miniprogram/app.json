@@ -4,6 +4,7 @@
     "pages/benyuedanjia/benyuedanjia",
     "pages/quanbudanjia/quanbudanjia",
     "pages/chazhang/chazhang",
+    "pages/paidui/paidui",
     "pages/chazhang2/chazhang2"
   ],
   "window": {
@@ -13,5 +14,6 @@
     "navigationBarTitleText": "呈呈制衣厂",
     "navigationBarTextStyle": "black"
   },
-  "cloud": true
+  "cloud": true,
+  "sitemapLocation": "sitemap.json"
 }
