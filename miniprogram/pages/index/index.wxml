@@ -6,7 +6,7 @@
  
 <view class="list-item" wx:if="{{userInfo2}}">
       <text class="request-text">你好：{{xingmingnihao}}</text>
-     <button  class="request-text"  wx:if="{{wuwu}}" bindtap="onwuwu">无误上报</button>
+     <button  class="request-text"  wx:if="{{wuwu}}" bindtap="onwuwu">确认</button>
     </view>
     
     

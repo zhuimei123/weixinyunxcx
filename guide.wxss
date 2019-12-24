@@ -38,6 +38,22 @@ page {
   border-top: none;
 }
 
+.list-item2 {
+  width: 100%;
+  padding: 0;
+  line-height: 104rpx;
+  font-size: 50rpx;
+  color: #1AAD19;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  
+  align-content:left;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+.list-item2:first-child {
+  border-top: none;
+}
 .list-item image {
   max-width: 100%;
   max-height: 20vh;

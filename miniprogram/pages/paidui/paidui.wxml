@@ -7,24 +7,33 @@
     
 <view class="list-item">
      
-      <button bindtap="inarmy">加入队伍</button>
-      <button bindtap="outarmy">退出队伍</button>
-      
+      <button  type="primary" size="mini" bindtap="inarmy">加入队伍</button>
+      <button type="primary" size="mini" bindtap="chadui" wx:if="{{quanxin}}">插队</button>
+      <button type="primary" size="mini" bindtap="tichu" wx:if="{{quanxin}}">踢出</button>
+      <button type="primary" size="mini" bindtap="outarmy">退出队伍</button>
+    
       
    </view>
-
-
-
-
-
+<view class="list" wx:if="{{quanxin}}">
+    <view class="list-item2" >
+  <input    type="number"  bindinput='fromgh' placeholder="要插入的工号" />
+  </view>
+  <view class="list-item2">
+  <input    type="number"   bindinput='frommid' placeholder="第几位" />
+  </view>
+</view>
     
     
- 
+ <view class="list-item" >
+    <text class="request-text" color="#1AAD19" >工号</text>
+    <text class="request-text"  color="#1AAD19" >位次</text>
+    
+   </view>
   
     
 
      <block wx:for="{{paiduimingxi}}" wx:if="{{userInfo2}}">
-  <view class="list-item" wx:if="{{item.visle}}">
+  <view class="list-item" >
     <text class="request-text"  >{{item.ch}}</text>
     <text class="request-text"  >{{item.mingci}}</text>
     

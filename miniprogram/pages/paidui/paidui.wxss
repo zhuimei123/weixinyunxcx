@@ -1,4 +1,4 @@
-/* miniprogram/pages/chazhang2/chazhang2.wxss */
+
 
 
 @import "../../style/guide.wxss";
@@ -9,3 +9,5 @@
   flex-direction: row;
   align-content: center;
 }
+
+

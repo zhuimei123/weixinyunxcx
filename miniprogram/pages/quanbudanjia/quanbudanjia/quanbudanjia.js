@@ -1,4 +1,4 @@
-// pages/chazhang/paidui.js
+// pages/quanbudanjia/quanbudanjia/quanbudanjia.js
 Page({
 
   /**

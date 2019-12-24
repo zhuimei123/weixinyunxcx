@@ -9,11 +9,15 @@ Page({
     userInfo2: 0,
     xingmingnihao: null,
     openid: '',
-    num2: 1,
-    mingximax:null,
+    quanxin: 0,
+    mingcimax:0,
     mymingci:null ,
-    army: null,
-  
+    mid:null,
+    gh:null,
+    tichum:null,
+    
+    
+    paiduimingxi:null
 
   },
 
@@ -25,10 +29,27 @@ Page({
         data: {},
         success: res => {
           app.globalData.openid = res.result.openid
-          this.setData({
+          this.setData({openid: res.result.openid})
+          console.log("1111111111111aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+          console.log(res.result.openid)
+           ///
+          wx.cloud.database().collection('quanxin').where({ 'quanxinid': res.result.openid }).get({
+            success: res => {
+              if(res.data.length)this.setData({ quanxin: 1 })
+              console.log(res.data)
+                console.log("2222222222222222aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            },
+            fail: err => {
+                     console.error('[数据库] [查询明细] 失败：', err)
+            }
+          }),
 
-            openid: res.result.openid
-          })
+
+
+           ///
+
+
+         
           this.getxingming()
         },
         fail: err => {
@@ -84,7 +105,10 @@ Page({
         })
         //  this.setData({gonghao:this.data.gonghao.substring(this.data.gonghao.length - 4, this.data.gonghao.length - 2)})         
         console.log('[数据库] [查询工号] 成功: ', this.data.gonghao)
+        console.log('parseint(-1):', parseInt('-1'))
+        this.getmingci()
         this.getmingxi()
+
         
       },
       fail: err => {
@@ -97,33 +121,29 @@ Page({
     })
   },
 
-  getmingxi: function () {
+  getmingci: function () {
     this.setData({ cw: parseInt(this.data.gonghao) })
     wx.cloud.database().collection('army').where({ 'ch': this.data.cw }).get({
       success: res => {
-
-        this.setData({
-          mymingci: res.data[0].mingci
-        })
+     if(res.data.length){
+        this.setData({mymingci: res.data[0].mingci})}
+     else { this.setData({ mymingci: 0 })}
         console.log('[数据库] [查询名次] 成功: ', this.data.mymingci)
 
       },
       fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
+        wx.showToast({icon: 'none',title: '查询名次记录失败'})
         console.error('[数据库] [查询名次] 失败：', err)
       }
-    }),  
+    })
+    
+  },  
  
-   
-      wx.cloud.database().collection('army').field({ ch: true ,mingci:true}).get({
+  getmingxi: function () {
+    wx.cloud.database().collection('army').field({ 'ch': true, 'mingci': true }).orderBy('mingci', 'desc').get({
       success: res => {
 
-        this.setData({
-          paiduimingxi: res.result.data
-})
+        this.setData({ paiduimingxi: res.data})
         console.log('[数据库] [查询明细] 成功: ', this.data.paiduimingxi)
 
       },
@@ -134,7 +154,9 @@ Page({
         })
         console.error('[数据库] [查询明细] 失败：', err)
       }
-    })
+    }),
+
+    console.log('执行到这里')
 
    
 
@@ -144,18 +166,78 @@ Page({
   
 
   inarmy: function () {
-
-    wx.cloud.database().collection('army').field({ 'mingci': true }).get({
+    wx.cloud.database().collection('army').where({ 'ch': this.data.gonghao }).get({
       success: res => {
-        this.setData({
 
 
-          mingcimax: Math.max.apply(res.data.mingci)
-        })
-        console.log('[数据库] [查询名次明细] 成功: ', res.data.mingci)  
-        console.log('[数据库] [查询最大名次] 成功: ', this.data.mingcimax)
-        this.getmingxi()
-        
+                 if (res.data.length) {
+                      wx.showToast({ icon: 'none',title:'已经在队里了'})
+                       console.error('已经在队里了', err)
+                      }
+                  else{
+   
+
+                          wx.cloud.callFunction({name: 'colletionupdate', data: {m: 1,n:1}}).then(res => {
+                 wx.cloud.database().collection('army').add({ data: { ch: this.data.gonghao, mingci: 1 } }).then(res => {
+                              console.log('[数据库] 加入队伍成功: '),
+                                this.getmingxi()
+                                this.getmingci()
+                              wx.showToast({ icon: 'none', title: '加入队伍' })
+                            }).catch(console.log("346346754677"), console.error)
+
+                                 console.log('[数据库] 全部加1 成功: ')
+                          }).catch(console.log("sdgsdgklsdgjsd"),console.error)
+
+
+                  
+                  }
+       //else end,
+      },
+      fail: err => {
+        wx.showToast({icon: 'none',title: '查询记录失败'})
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+      //fail end
+    })
+  },
+
+  
+  ///////
+  outarmy: function () {
+    wx.cloud.database().collection('army').where({ 'ch': this.data.gonghao }).get({
+      success: res => {
+
+
+        if (!res.data.length) {
+          wx.showToast({ icon: 'none', title: '没有在队里了' })
+          console.error('没有在队里了', err)
+        }
+        else {
+
+
+          wx.cloud.callFunction({name: 'colletionremove', data: { a: this.data.gonghao}})
+            .then(res => {
+              wx.cloud.callFunction({name: 'colletionupdate', data: { m: 1,  n: -1 }})
+                .then(res => {
+                  this.getmingxi()
+                  this.getmingci()
+                    wx.showToast({ icon: 'none', title: '退出排队成功' })
+                  console.log('[数据库] [重新排队] 成功: ', res)
+                }).catch(console.error),
+               
+            
+               console.log('[数据库] [remove] 成功: ', res)
+            })
+            .catch(console.error)
+            
+            
+           
+
+     
+
+         
+        }
+        //else end,
       },
       fail: err => {
         wx.showToast({
@@ -164,47 +246,114 @@ Page({
         })
         console.error('[数据库] [查询最大名次] 失败：', err)
       }
-    }),
+    })
+  },
+///////
+  chadui: function () { 
+    if(this.data.gh ||this.data.mid){
+      
+            this.chadui2()
+         
+
+                
+  }else{ wx.showToast({ icon: 'none', title: '输入插入位置(前面)和工号' })}},
+
+////////
+  chadui2: function () {
+    wx.cloud.callFunction({ name: 'colletionupdate', data: { m: this.data.mid, n: 1 } })
+      .then(res => {
+
+        wx.cloud.database().collection('army').add({ data: { ch: this.data.gh, mingci: this.data.mid } }).then(res => {
+          console.log('[数据库] 中间排队成功: '),
+            this.getmingxi()
+          
+          //wx.showToast({ icon: 'none', title: '中间排队' })
+        }).catch(console.log("346346fhdfhdfhdf"), console.error)
+
+        
+
+
+
+        
+        
+      
+      }).catch(console.error),
+
+
+
+    wx.showToast({ icon: 'none', title: '插队成功' })
     
-    wx.cloud.database().collection('army').add({
-      // data 字段表示需新增的 JSON 数据
-      data: {
-        ch: this.data.gonghao,
-        mingci: this.data.mingcimax+1
-       
-      }
-    })
-    .then(res => {
-      console.log(res)
-    })
-    .catch(console.error)
+  },
+  ///////
+  tichu: function () {
+    if (this.data.gh ) {
+
+      
+      wx.cloud.database().collection('army').where({ 'ch': this.data.gh }).get({
+        success: res => {
+          if (res.data.length) {
+            this.setData({ tichum: res.data[0].mingci })
+            this.tichu2()
+          }
+          else { wx.showToast({ icon: 'none', title: '噢噢噢噢噢噢噢噢哦哦' }) }
+          console.log('噢噢噢噢哦哦哦 ',res.data)
+
+        },
+        fail: err => {
+         // wx.showToast({ icon: 'none', title: '啊啊啊啊啊啊啊啊啊啊啊' })
+          console.error('啊啊啊啊啊啊啊啊啊啊啊', err)
+        }
+      })
+      
+
+
+
+    } else { wx.showToast({ icon: 'none', title: '输入工号' }) }
+  },
+
+  ////////
+  tichu2: function () {
+    wx.cloud.callFunction({ name: 'colletionupdate', data: { m: this.data.tichum, n: -1 } })
+      .then(res => {
+      
+        wx.cloud.callFunction({ name: 'colletionremove', data: { a: this.data.gh } }).then(res => {
+          console.log('[数据库] 中间排队成功: '),
+            this.getmingxi()
+
+        //  wx.showToast({ icon: 'none', title: 'jjjjjjjjjjjjjjjj' })
+        }).catch(console.log("急急急急急急急急急急急急"), console.error)
+
+
+
+
+
+
+
+
+      }).catch(console.error),
+
+
+
+      wx.showToast({ icon: 'none', title: '插队成功' })
 
   },
 
-  outarmy: function () {
-
-    wx.cloud.database().collection('army').where({ ch: this.data.gonghao}).remove().then(res => {
-      console.log(res)
-    })
-    .catch(console.error),
-    
-  
-
-    wx.cloud.database().collection('army').update({
-      data: {
-        progress: _.inc(-1)
-      },
-    }).then(res => {
-      console.log(res)
-    })
-    .catch(console.error)
+ 
+///////
+  fromgh: function (e) {
+    this.data.gh = parseInt(e.detail.value)
 
 
 
+  },
+  ///////
+  frommid: function (e) {
+    this.data.mid = parseInt(e.detail.value)
 
-  }
 
 
+  },
+  ///////
 
 
 
